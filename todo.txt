@@ -1,0 +1,9 @@
+create ---
+
+getCourseDEtails
+
+
+RatingReview:
+    createRating
+    getAverageRating
+    getAllRatings

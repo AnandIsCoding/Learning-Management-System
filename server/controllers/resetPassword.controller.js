@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import User from '../models/user.model.js'
 import mailSender from '../utils/mailSender.utils.js'
+import chalk from 'chalk'
 
 // resetPasswordToken
 

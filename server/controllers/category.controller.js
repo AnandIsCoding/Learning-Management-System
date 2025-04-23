@@ -1,4 +1,5 @@
 
+import chalk from "chalk"
 import Category from "../models/category.model"
 
 export const createCategoryController = async(req,res) =>{

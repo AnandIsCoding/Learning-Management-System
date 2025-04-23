@@ -1,5 +1,6 @@
 import Section from "../models/section.model";
 import Course from '../models/course.model.js'
+import chalk from "chalk";
 
 export const createSectionController = async(req,res) =>{
     try {

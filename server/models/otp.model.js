@@ -27,7 +27,7 @@ async function sendVerificationEmail(email,otp){
         console.log(chalk.bgRed('Error in sendVerificatonEmail fun() ---->> ',error.message))
         throw error
     }
-}
+} 
 
 // pre middleware
 otpSchema.pre('save', async function(next){

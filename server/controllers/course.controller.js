@@ -6,6 +6,7 @@ import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
 import dotenv from "dotenv";
 import Course from "../models/course.model.js";
+import chalk from "chalk";
 dotenv.config();
 export const createCourseController = async (req, res) => {
   try {
@@ -22,7 +23,7 @@ export const createCourseController = async (req, res) => {
       !category ||
       !thumbnail
     ) {
-      res
+      return res
         .status(400)
         .json({
           success: false,
@@ -33,7 +34,7 @@ export const createCourseController = async (req, res) => {
 
     // check that user is instructor only
     const instructorDetails = await User.findById(userId);
-    if (!userDetails) {
+    if (!instructorDetails) {
       return res
         .status(404)
         .json({
@@ -44,12 +45,15 @@ export const createCourseController = async (req, res) => {
     }
     console.log("Instructor details --->> ", instructorDetails);
 
-    // check userId and instructor._id are same
+    // check user is an instructor
     //----------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------
+     if(instructorDetails.accountType !== 'Instructor'){
+        return res.status(409).json({success:false, message:'Unauthorized ! Only instructors can create course !!', error:'Unauthorized ! Only instructors can create course !!'})
+     }
 
     // check if tag is valid, tag is tag _id
-    const categoryDetails = Category.findById(category);
+    const categoryDetails = await Category.findById(category);
     if (!categoryDetails) {
       return res
         .status(404)
@@ -62,7 +66,7 @@ export const createCourseController = async (req, res) => {
 
     // //file validation
     const supportedTypes = ["jpeg", "jpg", "png"];
-    const fileType = thumbnail.originalname.split(".").pop().toLowerCase(); // If the filename has multiple dots (my.profile.png), it will correctly extract the last extension.
+    const fileType = thumbnail?.originalname?.split(".").pop().toLowerCase(); // If the filename has multiple dots (my.profile.png), it will correctly extract the last extension.
 
     // if fileType is not supported
     if (!isFileTypeSupported(fileType, supportedTypes)) {
