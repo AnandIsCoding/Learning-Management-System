@@ -1,24 +1,25 @@
-import Tag from "../models/tags.model";
 
-export const createTagController = async(req,res) =>{
+import Category from "../models/category.model"
+
+export const createCategoryController = async(req,res) =>{
     try {
         const {name,description} = req.body
         if(!name || !description){
             return res.status(409).json({
                 success:false,
-                message:'Required firld missing!',
-                error:'Required firld missing!'
+                message:'Required field missing!',
+                error:'Required field missing!'
             })
         }
         //create entry in db
-        const tagDetails = await Tag.create({
+        const categoryDetails = await Category.create({
             name:name, description:description
         })
-        return res.status(200).json({success:true, message:'Tag Created Successfully !', tagDetails})
+        return res.status(200).json({success:true, message:'Category Created Successfully !', tagDetails})
     } catch (error) {
         console.log(
             chalk.bgRedBright(
-              "Error in createTagController function in tags.controller.js --->> ",
+              "Error in createCategoryController function in category.controller.js --->> ",
               error.message
             )
           );
@@ -31,18 +32,18 @@ export const createTagController = async(req,res) =>{
 }
 
 
-export const getAllTagsController = async(req,res) =>{
+export const getAllCategoryController = async(req,res) =>{
     try {
-        const allTags = await Tag.find({},{name:true,description:true})
+        const allCategory = await Category.find({},{name:true,description:true})
         return res.status(200).json({
             success:true,
-            message:'Tags Fetched Successfully',
-            allTags
+            message:'Category Fetched Successfully',
+            allCategory
         })
     } catch (error) {
         console.log(
             chalk.bgRedBright(
-              "Error in getAllTagsController function in tags.controller.js --->> ",
+              "Error in getAllCategoryController function in category.controller.js --->> ",
               error.message
             )
           );

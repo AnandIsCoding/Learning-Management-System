@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const tagsSchema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -15,6 +15,6 @@ const tagsSchema = new mongoose.Schema({
             ref:'Course'
         }
     ]
-})
-const Tag = mongoose.model('Tag',tagsSchema)
-export default Tag
+},{timestamps:true})
+const Category = mongoose.model('Tag',categorySchema)
+export default Category

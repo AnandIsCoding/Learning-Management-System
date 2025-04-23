@@ -145,10 +145,10 @@ export const signupController = async (req, res) => {
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     const profileDetails = await Profile.create({
-      gender: "male",
-      dateOfBirth: "dummy:dummy",
-      about: "Hello dummy",
-      contactNumber: 1234567890,
+      gender: null,
+      dateOfBirth: null,
+      about:null,
+      contactNumber: null,
     });
 
     const user = {

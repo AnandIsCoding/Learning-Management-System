@@ -9,7 +9,7 @@ const sectionSchema = new mongoose.Schema({
         ref:'SubSection',
         required:true
     }
-})
+},{timestamps:true})
 
 const Section = mongoose.model('Section',sectionSchema)
 export default Section;

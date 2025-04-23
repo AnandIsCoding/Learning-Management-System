@@ -14,7 +14,7 @@ const ratingReviewSchema = new mongoose.Schema({
         required:true,
         trim:true
     }
-})
+},{timestamps:true})
 
 const RatingReview = mongoose.model('RatingReview',ratingReviewSchema)
 export default RatingReview

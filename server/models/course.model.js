@@ -21,10 +21,12 @@ const courseSchema = new mongoose.Schema({
         required:true,
         trim:true
     },
-    courseContent:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Section' 
-    },
+    courseContent:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Section'
+        }
+    ],
     ratingReview:[
         {
             type:mongoose.Schema.Types.ObjectId,
@@ -41,8 +43,11 @@ const courseSchema = new mongoose.Schema({
         required:true
     },
     tag:{
+        type:String,
+    },
+    category:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Tag',
+        ref:'Category',
         required:true
     },
     studentsEnrolled:[
@@ -52,7 +57,7 @@ const courseSchema = new mongoose.Schema({
             required:true
         }
     ]
-})
+},{timestamps:true})
 
 const Course = mongoose.model('Course',courseSchema)
 export default Course

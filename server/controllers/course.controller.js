@@ -3,13 +3,13 @@ import {
   uploadFileToCloudinary,
 } from "../utils/helpers.utils";
 import User from "../models/user.model.js";
-import Tag from "../models/tags.model.js";
+import Category from "../models/category.model.js";
 import dotenv from "dotenv";
 import Course from "../models/course.model.js";
 dotenv.config();
 export const createCourseController = async (req, res) => {
   try {
-    const { courseName, courseDescription, whatYouWillLearn, price, tag } =
+    const { courseName, courseDescription, whatYouWillLearn, price, category , tag} =
       req.body;
     const { userId } = req.user;
     const { thumbnail } = req.files;
@@ -19,7 +19,7 @@ export const createCourseController = async (req, res) => {
       !courseDescription ||
       !whatYouWillLearn ||
       !price ||
-      !tag ||
+      !category ||
       !thumbnail
     ) {
       res
@@ -49,14 +49,14 @@ export const createCourseController = async (req, res) => {
     // ------------------------------------------------------------------------------------------------------------------
 
     // check if tag is valid, tag is tag _id
-    const tagDetails = Tag.findById(tag);
-    if (!tagDetails) {
+    const categoryDetails = Category.findById(category);
+    if (!categoryDetails) {
       return res
         .status(404)
         .json({
           success: false,
-          message: "Tag Details not found",
-          error: "Tag Details not found",
+          message: "Category Details not found",
+          error: "Category Details not found",
         });
     }
 
@@ -86,7 +86,8 @@ export const createCourseController = async (req, res) => {
       instructor: instructorDetails._id,
       whatYouWillLearn,
       price,
-      tag: tagDetails._id,
+      tag,
+      category:categoryDetails._id,
       thumbnail: thumbnailImage.secure_url,
     });
 
@@ -100,8 +101,8 @@ export const createCourseController = async (req, res) => {
       },
       { new: true }
     );
-    await Tag.findByIdAndUpdate(
-      { _id: tagDetails._id },
+    await Category.findByIdAndUpdate(
+      { _id: categoryDetails._id },
       {
         $push: {
           course: newCourse._id,

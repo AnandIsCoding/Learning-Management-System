@@ -11,7 +11,7 @@ const courseProgressSchema = new mongoose.Schema({
         ref:'Subsection'
       }
   ]
-})
+},{timestamps:true})
 
 const CourseProgress = mongoose.model('CourseProgress',courseProgressSchema)
 export default CourseProgress
